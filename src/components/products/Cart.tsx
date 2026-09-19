@@ -21,18 +21,20 @@ export default function Cart({ cart, setCart }: CartType) {
         <div>
             <div>
                 {
-                    cart.map(c=> <div key={c.id} >
+                    cart.length===0?'Cart is Empty': cart.map(c=> <div key={c.id} >
                         <li>{c.name}</li> <button onClick={()=>{handleDeleteItem(c)}} >Delete</button>
                     </div>)
                 }
                 
             </div>
             <div>
-                <button onClick={()=>{
+                {
+                    cart.length>1?<button onClick={()=>{
                     hadnleDeleteAll()
                 }}>
                     delete all item
-                </button>
+                </button>:''
+                }
             </div>
         </div>
     )
