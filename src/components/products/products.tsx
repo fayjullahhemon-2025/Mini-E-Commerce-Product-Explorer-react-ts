@@ -1,15 +1,15 @@
-import { use, useState } from "react"
+import { use, useState} from "react"
 import type { MobileType } from "../types"
 import ProductCard from "./ProductCard";
 
 interface ProductsPropType {
     productsPromiseData: Promise<MobileType[]>
-
+    
 }
-let isSelect;
+
 export default function Products({ productsPromiseData }: ProductsPropType) {
     const products = use(productsPromiseData);
-    
+    const [cart,setCart] = useState<MobileType[]>([])
     // console.log(products);
     return (
         <div>
@@ -19,11 +19,13 @@ export default function Products({ productsPromiseData }: ProductsPropType) {
             <div>
                 <div className="grid grid-cols-3 gap-3 my-10" >
                     {
-                        products.map(product => <ProductCard key={product.id} product = {product} ></ProductCard>)
+                        products.map(product => <ProductCard key={product.id} product = {product} cart={cart} setCart={setCart} ></ProductCard>)
                     }
                 </div>
                 <div>
-
+                    {
+                        cart.map(c=> <li key={c.id} >{c.name}</li>)
+                    }
                 </div>
             </div>
         </div>

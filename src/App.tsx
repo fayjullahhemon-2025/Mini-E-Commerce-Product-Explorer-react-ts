@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import Navbar from "./components/Navbar"
 import Products from "./components/products/products";
 
@@ -10,12 +10,12 @@ function App() {
     const data = await res.json();
     return data;
   }
-  
+
   return (
     <>
       <Navbar></Navbar>
       <Suspense fallback={<p>Loading...</p>} >
-        <Products productsPromiseData={productsPromiseData()} ></Products>
+        <Products  productsPromiseData={productsPromiseData()} ></Products>
       </Suspense>
     </>
   )

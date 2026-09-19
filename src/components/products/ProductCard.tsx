@@ -1,16 +1,27 @@
-import { use, useState } from "react";
+import { useState, type Dispatch, type SetStateAction } from "react";
 import type { MobileType } from "../types";
 
 interface ProductCardType{
     product:MobileType
+    cart:MobileType[];
+    setCart:Dispatch<SetStateAction<MobileType[]>>
 }
 
-export default function ProductCard({product}:ProductCardType){
+export default function ProductCard({product,cart,setCart}:ProductCardType){
     const [select, setSelect] = useState<boolean>(false);
 
+    let exist = cart.find(p=> p.id===product.id);
+    const handleSetCart = ()=>{
+        if(exist){
+            let remain = cart.filter(p=> p.id !== product.id);
+            setCart(remain);
+        }else{
+            setCart([...cart,product])
+        }
+    }
     const handleToggleSelect = (): void => {
         setSelect(!select);
-
+        handleSetCart();
     }
     return(
         <div className="w-full max-w-sm overflow-hidden rounded-2xl bg-white shadow-md transition hover:-translate-y-1 hover:shadow-xl">
